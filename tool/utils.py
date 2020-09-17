@@ -133,6 +133,14 @@ def plot_boxes_cv2(img, boxes, savename=None, class_names=None, color=None):
             blue = get_color(0, offset, classes)
             if color is None:
                 rgb = (red, green, blue)
+            if class_names[cls_id].strip().lower() != 'person':
+                continue
+            if(abs(x2 - x1) <= abs(y2 - y1)):
+                texting = 'Standing Person'
+                rgb = (0, 255, 0)
+            else:
+                texting = 'Lying Person'
+                rgb = (255, 0, 0)
             img = cv2.putText(img, class_names[cls_id], (x1, y1), cv2.FONT_HERSHEY_SIMPLEX, 1.2, rgb, 1)
         img = cv2.rectangle(img, (x1, y1), (x2, y2), rgb, 1)
     if savename:
